@@ -1,0 +1,91 @@
+call plug#begin('~/.vim/plugged')
+
+Plug 'The-NERD-tree'
+Plug 'The-NERD-Commenter'
+Plug 'tpope/vim-fugitive'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'DirDiff.vim'
+Plug 'Mark--Karkat'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'ntpeters/vim-better-whitespace'
+
+call plug#end()
+
+" ============================================================================
+" General
+" ============================================================================
+
+" ---------------------------------------
+" indispensable
+" ---------------------------------------
+syntax on
+set ruler
+set textwidth=78
+set laststatus=2
+let mapleader = ","
+colorscheme default
+set background=dark
+set diffopt+=vertical
+set notitle
+set mouse=r
+
+" ---------------------------------------
+"  tabs
+" ---------------------------------------
+set tabpagemax=15
+
+" ---------------------------------------
+" tabulation
+" ---------------------------------------
+set tabstop=2
+set softtabstop=2
+set shiftwidth=4
+set expandtab
+
+" ---------------------------------------
+" navigation
+" ---------------------------------------
+map <C-h> gT
+map <C-l> gt
+map <left> gT
+map <right> gt
+map <up> <C-y>
+map <down> <C-e>
+map <End> <C-w>w
+
+
+" ============================================================================
+" plugins configuration
+" ============================================================================
+
+" ---------------------------------------
+" bookmark
+" ---------------------------------------
+let g:bookmark_highlight_lines = 1
+
+" ---------------------------------------
+" nerdtree
+" ---------------------------------------
+let NERDTreeIgnore = ['\.swp', '\~$', '\.pyc$', '\.o', '\.so']
+map <C-n> :NERDTreeToggle<CR>
+
+" ---------------------------------------
+" dirdiff
+" ---------------------------------------
+let g:DirDiffExcludes = ".svn,Documentation,Library,*.so,*.dylib,.*.swp,*~,*.o,*.a,.depend,main"
+if &diff
+    syntax off
+endif
+
+" ---------------------------------------
+" fugitive
+" ---------------------------------------
+" maps .. to go up a level to the parent directory
+autocmd User fugitive
+  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+  \   nnoremap <buffer> .. :edit %:h<CR> |
+  \ endif
+" Auto-clean fugitive buffers
+autocmd BufReadPost fugitive://* set bufhidden=delete
+" Add git branch to status line
+" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P

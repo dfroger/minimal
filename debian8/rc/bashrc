@@ -1,0 +1,70 @@
+#==============================================================================
+# Source files
+#==============================================================================
+
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+#==============================================================================
+# Configure terminal
+#==============================================================================
+
+set -o vi
+export EDITOR=/usr/bin/vim
+export LC_ALL=en_US.UTF-8
+export TERM=xterm-256color
+
+PS1="\h:\W$ "
+
+# Enable programmable completion features
+if [ -f /etc/bash_completion ]; then
+	. /etc/bash_completion
+fi
+
+prompt_content() {
+    # $STY is a string like: 12345.screen_name
+    # We remove the 12345. prefix to get the screen_name.
+    screen_name=${STY##*.}
+    if [ -n "$screen_name" ]
+    then
+        # Note: I prevent Vim overriding this terminal title with
+        # 'set notitle' in ~/.vimrc .
+        echo "$screen_name"
+    else
+        if [ $PWD == $HOME ]
+        then
+            path='~'
+        else
+            path=$(basename $PWD)
+        fi
+        echo "$HOSTNAME:$path"
+    fi
+}
+PROMPT_COMMAND='echo -ne "\033]0;$(prompt_content)\007"'
+
+#==============================================================================
+# completion
+#==============================================================================
+
+# See: http://askubuntu.com/a/136633
+shopt -s direxpand
+
+#==============================================================================
+# Alias
+#==============================================================================
+
+alias ls='ls -B --color=auto --ignore="*.pyc"'
+
+#==============================================================================
+# Functions
+#==============================================================================
+
+# Set terminal title.
+function title {
+    echo -en "\033]2;$1\007"
+}
+
+function dirdiff {
+  /usr/bin/vim -f '+next' '+execute "DirDiff" argv(0) argv(1)' $1 $2 '+syntax off'
+}
