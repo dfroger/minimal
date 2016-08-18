@@ -7,6 +7,8 @@
 apt-get update
 apt-get install git
 
+cd /tmp
+
 git clone https://github.com/dfroger/minimal
 
 cd minimal/jessie
