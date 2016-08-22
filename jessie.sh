@@ -5,7 +5,7 @@
 #     [sudo] curl https://raw.githubusercontent.com/dfroger/minimal/master/jessie.sh | bash
 # or:
 #
-#     [sudo] curl http://bit.do/dfmin | bash
+#     [sudo] curl -L http://bit.do/dfmin | bash
 
 apt-get update
 apt-get install git
