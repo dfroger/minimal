@@ -7,6 +7,11 @@
 #
 #     [sudo] curl -L http://bit.do/dfmin | bash
 
+# Safe shell
+set -o nounset
+set -o errexit
+set -o pipefail
+
 apt-get update
 apt-get install git
 
