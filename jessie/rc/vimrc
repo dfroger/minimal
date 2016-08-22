@@ -8,6 +8,8 @@ Plug 'DirDiff.vim'
 Plug 'Mark--Karkat'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'saltstack/salt-vim'
+Plug 'Matt-Deacalion/vim-systemd-syntax'
 
 call plug#end()
 
